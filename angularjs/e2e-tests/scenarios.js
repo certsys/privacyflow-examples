@@ -39,4 +39,18 @@ describe('my app', function() {
     });
 
   });
+
+  describe('dsr', function() {
+
+    beforeEach(function() {
+      browser.get('index.html#!/dsr');
+    });
+
+
+    it('should render dsr when user navigates to /dsr', function() {
+      expect(element.all(by.css('[ng-view] p')).first().getText()).
+        toMatch(/partial for view 2/);
+    });
+
+  });
 });
