@@ -1,11 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import RenderHtml from 'react-native-render-html';
+
+const source = {
+  html: `
+<p style='text-align:center;'>
+  Coloque o link do DSR e Barra de Cookies aqui.
+</p>`
+};
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>Possui dados conosco?</Text>
       <StatusBar style="auto" />
+      <RenderHtml source={source}/>
     </View>
   );
 }
