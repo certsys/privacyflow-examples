@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Switch } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function App() {
   const [data, setData] = useState([]);
@@ -36,9 +37,12 @@ export default function App() {
       <View>
         <View style={styles.catHeaderRow}>
           <View style={styles.catHeaderRowLeft}>
-            <Text style={styles.catHeader}>
-              V
-            </Text>
+            <Ionicons
+              style={styles.catHeaderIcon}
+              name="md-checkmark-circle"
+              size={18}
+              color="gray"
+            />
             <Text style={styles.catHeader}>
               Necessários
             </Text>
@@ -63,9 +67,12 @@ export default function App() {
       <View>
         <View style={styles.catHeaderRow}>
           <View style={styles.catHeaderRowLeft}>
-            <Text style={styles.catHeader}>
-              V
-            </Text>
+            <Ionicons
+              style={styles.catHeaderIcon}
+              name="md-checkmark-circle"
+              size={18}
+              color="gray"
+            />
             <Text style={styles.catHeader}>
               Funcionais
             </Text>
@@ -114,6 +121,11 @@ const styles = StyleSheet.create({
   catHeaderRowLeft: {
     flexDirection: "row",
     justifyContent: "space-between"
+  },
+  catHeaderIcon: {
+    marginTop: "10px",
+    marginRight: "16px",
+    marginBottom: "14px"
   },
   catHeader: {
     color: "#494949",
