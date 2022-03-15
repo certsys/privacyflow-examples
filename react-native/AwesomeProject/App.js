@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Switch } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { List } from 'react-native-paper';
 
 export default function App() {
   const [data, setData] = useState([]);
   const [isReqEnabled, setIsReqEnabled] = useState(false);
   const [isFunEnabled, setIsFunEnabled] = useState(false);
+  const [expanded, setExpanded] = useState(true);
+
 
   const getLinks = async () => {
     try {
@@ -59,9 +62,19 @@ export default function App() {
         <Text style={styles.catDesc}>
           Os cookies necessários são absolutamente essenciais para o funcionamento adequado do site. Esses cookies garantem funcionalidades básicas e recursos de segurança do site, de forma anônima.
         </Text>
-        <Text style={styles.acordionTitle}>
-          Mais detalhes
-        </Text>
+        <List.Accordion
+          title="Mais detalhes"
+          titleStyle={styles.acordionTitle}
+        >
+          <View style={styles.acordionItem}>
+            <Text style={styles.acordionItemDesc}>AWSELB</Text>
+            <Text style={styles.acordionItemDesc}>www.outback.com.br</Text>
+          </View>
+          <View style={styles.acordionItem}>
+            <Text style={styles.acordionItemDesc}>OptanonConsent</Text>
+            <Text style={styles.acordionItemDesc}>.outback.com.br</Text>
+          </View>
+        </List.Accordion>
       </View>
 
       <View>
@@ -89,9 +102,15 @@ export default function App() {
         <Text style={styles.catDesc}>
           Os cookies funcionais ajudam a executar certas funcionalidades, como compartilhar o conteúdo do site em plataformas de mídia social, coletar feedbacks e outros recursos de terceiros.
         </Text>
-        <Text style={styles.acordionTitle}>
-          Mais detalhes
-        </Text>
+        <List.Accordion
+          title="Mais detalhes"
+          titleStyle={styles.acordionTitle}
+        >
+          <View style={styles.acordionItem}>
+            <Text style={styles.acordionItemDesc}>_pin_unauth</Text>
+            <Text style={styles.acordionItemDesc}>.outback.com.br</Text>
+          </View>
+        </List.Accordion>
       </View>
 
     </View>
@@ -147,6 +166,18 @@ const styles = StyleSheet.create({
     lineHeight: "16px",
     fontWeight: "bold",
     letterSpacing: ".62px",
-    padding: "15px",
-  }
+    paddingLeft: "15px",
+  },
+  acordionItem: {
+    marginTop: "8px"
+  },
+  acordionItemDesc: {
+    color: "#494949",
+    fontSize: "10px",
+    fontWeight: "bold",
+    lineHeight: "14px",
+    letterSpacing: ".62px",
+    wordBreak: "break-all",
+  },
+
 });
