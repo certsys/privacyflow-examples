@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Switch, Button } from 'react-native';
+import { StyleSheet, Text, View, Switch, Button, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { List } from 'react-native-paper';
 
@@ -11,10 +11,11 @@ export default function App() {
   const [isMakEnabled, setIsMakEnabled] = useState(false);
   const [isAnaEnabled, setIsAnaEnabled] = useState(false);
   const [hasCookieBar, setHasCookieBar] = useState(false);
+  const [policyURL] = useState('https://hotfix.app.privacyflow.development.tec.br/slug/1646748651628-spfg');
 
   const getCookieBar = () => {
     try {
-     fetch('http://localhost:3333/api/v1/cookie_bars/reactnative/62276367c37cdd001c99cdd2')
+     fetch('https://privacyflow-hotfix.development.tec.br/api/v1/cookie_bars/reactnative/62276367c37cdd001c99cdd2')
       .then((response) => response.json())
       .then((json) => {
         if (Object.hasOwnProperty.call(json, 'cookie_bar')) {
@@ -57,6 +58,23 @@ export default function App() {
       })
     });
   }
+
+  const OpenURLButton = ({ url, children }) => {
+    const handlePress = useCallback(async () => {
+      // Checking if the link is supported for links with custom URL scheme.
+      const supported = await Linking.canOpenURL(url);
+  
+      if (supported) {
+        // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+        // by some browser in the mobile
+        await Linking.openURL(url);
+      } else {
+        Alert.alert(`Don't know how to open this URL: ${url}`);
+      }
+    }, [url]);
+  
+    return <Button title={children} color="#e95b2dff" onPress={handlePress} />;
+  };
 
   useEffect(() => {
     getCookieBar();
@@ -261,6 +279,8 @@ export default function App() {
             color="#e95b2dff"
             accessibilityLabel="Salvar preferencias"
           />
+
+          <OpenURLButton url={policyURL}>Política de Privacidade</OpenURLButton>
         
         </>
       )}
@@ -282,14 +302,14 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#e95b2dff",
-    fontSize: "14px",
-    lineHeight: "18px",
+    fontSize: 14,
+    lineHeight: 18,
     fontWeight: "bold",
   },
   catHeaderRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: "30px",
+    marginTop: 30,
     alignItems: "center",
   },
   catHeaderRowLeft: {
@@ -297,42 +317,42 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   catHeaderIcon: {
-    marginTop: "10px",
-    marginRight: "16px",
-    marginBottom: "14px"
+    marginTop: 10,
+    marginRight: 16,
+    marginBottom: 14
   },
   catHeader: {
     color: "#494949",
-    fontSize: "14px",
-    lineHeight: "18px",
+    fontSize: 14,
+    lineHeight: 18,
     fontWeight: "bold",
-    marginTop: "10px",
-    marginBottom: "14px",
+    marginTop: 10,
+    marginBottom: 14,
   },
   catDesc: {
     color: "#949494",
-    fontSize: "12px",
-    lineHeight: "16px",
-    letterSpacing: ".62px",
+    fontSize: 12,
+    lineHeight: 16,
+    letterSpacing: 0.62,
   },
   acordionTitle: {
     color: "#e95b2dff",
-    fontSize: "12px",
-    lineHeight: "16px",
+    fontSize: 12,
+    lineHeight: 16,
     fontWeight: "bold",
-    letterSpacing: ".62px",
-    paddingLeft: "15px",
+    letterSpacing: 0.62,
+    paddingLeft: 15,
   },
   acordionItem: {
-    marginTop: "8px"
+    marginTop: 8
   },
   acordionItemDesc: {
     color: "#494949",
-    fontSize: "10px",
+    fontSize: 10,
     fontWeight: "bold",
-    lineHeight: "14px",
-    letterSpacing: ".62px",
-    wordBreak: "break-all",
+    lineHeight: 14,
+    letterSpacing: 0.62,
+    // wordBreak: "break-all",
   },
 
 });
